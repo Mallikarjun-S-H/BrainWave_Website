@@ -1,0 +1,22 @@
+name: build and deploy flask-mini-app
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: build image
+        run: |
+          docker build -t flask-mini-app .
+          dokcker tag flask-mini-app:latest mallik121/flask-mini-repo:0.0.1
+          docker login -u mallik121 -p ${{ secrets.DOCKER_PASSWORD }}
+          docker push mallik121/flask-mini-repo:tagname
+
+      - name: deploy image
+        run: |
+          docker run -p 5173:5173 mallik121/flask-mini-repo:0.0.1
