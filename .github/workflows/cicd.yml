@@ -15,7 +15,7 @@ jobs:
           docker build -t flask-mini-app .
           docker tag flask-mini-app:latest mallik121/flask-mini-repo:0.0.1
           docker login -u mallik121 -p ${{ secrets.DOCKER_PASSWORD }}
-          docker push mallik121/flask-mini-repo:tagname
+          docker push mallik121/flask-mini-repo:0.0.1
 
       - name: deploy image
         run: |
